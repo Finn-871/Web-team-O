@@ -5,3 +5,8 @@ body {
     justify-content: center; 
     align-items: center; 
 } 
+
+.login-container { 
+    text-align: center; 
+    width: 500px; 
+} 
