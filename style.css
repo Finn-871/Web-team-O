@@ -23,3 +23,16 @@ body {
     font-size: 40px; 
     margin-bottom: 40px; 
 } 
+
+form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 25px; 
+} 
+
+input { 
+    padding: 12px; 
+    font-size: 16px; 
+    width: 100%; 
+    border: 1px solid #888; 
+} 
