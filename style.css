@@ -1,3 +1,11 @@
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: Arial, sans-serif; 
+} 
+
+
 body { 
     background-color: #cfcfcf; 
     height: 100vh; 
@@ -9,4 +17,9 @@ body {
 .login-container { 
     text-align: center; 
     width: 500px; 
+} 
+
+.login-container h1 { 
+    font-size: 40px; 
+    margin-bottom: 40px; 
 } 
