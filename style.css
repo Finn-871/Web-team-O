@@ -36,3 +36,14 @@ input {
     width: 100%; 
     border: 1px solid #888; 
 } 
+
+button { 
+    padding: 12px; 
+    font-size: 16px; 
+    border-radius: 25px; 
+    border: 1px solid #888; 
+    background-color: #e0e0e0; 
+    cursor: pointer; 
+    width: 150px; 
+    align-self: center; 
+} 
