@@ -1,1 +1,303 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+ 
+  <!-- ===== HEADER: Profile card ===== -->
+  <header class="profile-card">
+    <div class="avatar-box">
+      <!-- Placeholder avatar; swap for <img> when we have real photos -->
+      <div class="avatar-placeholder"></div>
+    </div>
+    <div class="profile-info">
+      <p class="profile-name" id="profile-name">Account Name</p>
+      <p class="profile-role">Type: Student</p>
+    </div>
+    <button class="logout-btn" onclick="handleLogout()">Log Out</button>
+  </header>
+ 
+  <!-- ===== DATE / TIME display ===== -->
+  <div class="datetime-display">
+    <p id="datetime">March 26th 2026 &nbsp; 8:45 AM</p>
+  </div>
+ 
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="dashboard">
+ 
+    <!-- ── Upcoming Events section ── -->
+    <section class="events-section" id="upcoming-events-section">
+      <h2 class="section-title">Upcoming Events</h2>
+ 
+      <div class="section-inner">
+ 
+        <!-- Day columns — repeat this block per day, JS will generate these dynamically later -->
+        <div class="day-columns">
+ 
+          <!-- Day card -->
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-month">MAR</span>
+              <span class="day-date">26th</span>
+            </div>
+            <div class="event-list">
+              <!-- Event row — repeat per event -->
+              <div class="event-row">
+                <div class="event-info">
+                  <p class="event-name">Event 1</p>
+                  <p class="event-time">9:00 – 11:00</p>
+                </div>
+                <div class="event-actions">
+                  <button class="star-btn active" title="Favourite">★</button>
+                  <button class="detail-btn" title="View details"
+                          onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
+                </div>
+              </div>
+              <!-- End event row -->
+ 
+              <div class="event-row">
+                <div class="event-info">
+                  <p class="event-name">Event 2</p>
+                  <p class="event-time">13:00 – 15:00</p>
+                </div>
+                <div class="event-actions">
+                  <button class="star-btn" title="Favourite">☆</button>
+                  <button class="detail-btn" title="View details"
+                          onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
+                </div>
+              </div>
+ 
+            </div>
+          </div>
+          <!-- End day card -->
+ 
+          <!-- Repeat day cards for other dates -->
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-month">MAR</span>
+              <span class="day-date">27th</span>
+            </div>
+            <div class="event-list">
+              <div class="event-row">
+                <div class="event-info">
+                  <p class="event-name">Event 3</p>
+                  <p class="event-time">10:00 – 13:00</p>
+                </div>
+                <div class="event-actions">
+                  <button class="star-btn" title="Favourite">☆</button>
+                  <button class="detail-btn" onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
+                </div>
+              </div>
+              <div class="event-row">
+                <div class="event-info">
+                  <p class="event-name">Event 4</p>
+                  <p class="event-time">13:00 – 14:00</p>
+                </div>
+                <div class="event-actions">
+                  <button class="star-btn" title="Favourite">☆</button>
+                  <button class="detail-btn" onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
+                </div>
+              </div>
+            </div>
+          </div>
+ 
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-month">MAR</span>
+              <span class="day-date">31st</span>
+            </div>
+            <div class="event-list">
+              <div class="event-row">
+                <div class="event-info">
+                  <p class="event-name">Event 5</p>
+                  <p class="event-time">9:00 – 12:00</p>
+                </div>
+                <div class="event-actions">
+                  <button class="star-btn active" title="Favourite">★</button>
+                  <button class="detail-btn" onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
+                </div>
+              </div>
+            </div>
+          </div>
+ 
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-month">APR</span>
+              <span class="day-date">2nd</span>
+            </div>
+            <div class="event-list">
+              <div class="event-row">
+                <div class="event-info">
+                  <p class="event-name">Event 8</p>
+                  <p class="event-time">11:00 – 12:00</p>
+                </div>
+                <div class="event-actions">
+                  <button class="star-btn" title="Favourite">☆</button>
+                  <button class="detail-btn" onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
+                </div>
+              </div>
+            </div>
+          </div>
+ 
+        </div>
+        <!-- End day columns -->
+ 
+        <!-- Next event summary + view all button -->
+        <div class="section-sidebar">
+          <div class="next-event-box">
+            <p class="next-label">Next Event:</p>
+            <p class="next-name" id="next-event-name">Event 1</p>
+            <p class="next-time" id="next-event-time">9:00 – 11:00</p>
+            <p class="next-location" id="next-event-location">Building A, Room 1</p>
+          </div>
+          <a href="student-event-detail.html" class="view-all-btn">
+            View Full Calendar <span>→</span>
+          </a>
+        </div>
+ 
+      </div>
+    </section>
+    <!-- End upcoming events -->
+ 
+    <!-- ── Upcoming Favourite Events section ── -->
+    <section class="events-section" id="favourites-section">
+      <h2 class="section-title">Upcoming Favourite Events</h2>
+ 
+      <div class="section-inner">
+ 
+        <div class="day-columns">
+ 
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-month">MAR</span>
+              <span class="day-date">26th</span>
+            </div>
+            <div class="event-list">
+              <div class="event-row">
+                <div class="event-info">
+                  <p class="event-name">Event 1</p>
+                  <p class="event-time">9:00 – 11:00</p>
+                </div>
+                <div class="event-actions">
+                  <button class="star-btn active">★</button>
+                  <button class="detail-btn" onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
+                </div>
+              </div>
+            </div>
+          </div>
+ 
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-month">MAR</span>
+              <span class="day-date">31st</span>
+            </div>
+            <div class="event-list">
+              <div class="event-row">
+                <div class="event-info">
+                  <p class="event-name">Event 5</p>
+                  <p class="event-time">9:00 – 12:00</p>
+                </div>
+                <div class="event-actions">
+                  <button class="star-btn active">★</button>
+                  <button class="detail-btn" onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
+                </div>
+              </div>
+            </div>
+          </div>
+ 
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-month">APR</span>
+              <span class="day-date">14th</span>
+            </div>
+            <div class="event-list">
+              <div class="event-row">
+                <div class="event-info">
+                  <p class="event-name">Event 9</p>
+                  <p class="event-time">10:00 – 12:00</p>
+                </div>
+                <div class="event-actions">
+                  <button class="star-btn active">★</button>
+                  <button class="detail-btn" onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
+                </div>
+              </div>
+            </div>
+          </div>
+ 
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-month">MAY</span>
+              <span class="day-date">1st</span>
+            </div>
+            <div class="event-list">
+              <div class="event-row">
+                <div class="event-info">
+                  <p class="event-name">Event 19</p>
+                  <p class="event-time">14:00 – 17:00</p>
+                </div>
+                <div class="event-actions">
+                  <button class="star-btn active">★</button>
+                  <button class="detail-btn" onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
+                </div>
+              </div>
+            </div>
+          </div>
+ 
+        </div>
+ 
+        <div class="section-sidebar">
+          <div class="next-event-box">
+            <p class="next-label">Next Favourite Event:</p>
+            <p class="next-name" id="next-fav-name">Event 1</p>
+            <p class="next-time" id="next-fav-time">9:00 – 11:00</p>
+            <p class="next-location" id="next-fav-location">Building A, Room 1</p>
+          </div>
+          <a href="student-event-detail.html" class="view-all-btn">
+            All Favourites <span>→</span>
+          </a>
+        </div>
+ 
+      </div>
+    </section>
+    <!-- End favourites -->
+ 
+  </main>
+ 
+  <script src="events.js"></script>
+  <script>
+    // ── Live clock ──
+    function updateClock() {
+      const now = new Date()
+      document.getElementById("datetime").textContent =
+        now.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) +
+        "  " +
+        now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })
+    }
+    updateClock()
+    setInterval(updateClock, 60000)
+ 
+    // ── Navigate to event detail with ID in URL ──
+    function goToDetail(id) {
+      window.location.href = "student-event-detail.html?id=" + id
+    }
+ 
+    // ── Logout ──
+    function handleLogout() {
+      localStorage.removeItem("token")
+      localStorage.removeItem("user")
+      window.location.href = "student-login.html"
+    }
+ 
+    // ── Fill profile name from localStorage ──
+    const user = JSON.parse(localStorage.getItem("user") || "{}")
+    if (user.fullName) {
+      document.getElementById("profile-name").textContent = user.fullName
+    }
+  </script>
+ 
+</body>
+</html>
