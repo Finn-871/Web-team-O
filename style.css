@@ -213,3 +213,20 @@ img {
   align-items: center;
   padding: 5px;
 }
+
+.datetime-displayD, .locationDisplay, .description {
+	text-align: center;
+	width: 50%;
+	margin: 0 auto;
+	background-color: white;
+	padding: 20px;
+}
+
+
+.detailsButton, .googleCalander {
+display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+margin: 0 auto;  
+}
