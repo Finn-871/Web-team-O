@@ -143,3 +143,73 @@ a {
     font-size: 2rem;
     color: black;
 }
+
+.profile-card {
+	background-color: lightgrey;
+	display: flex;
+	width: 35%;
+	
+	align-items: center;
+	margin: 50px auto 20px auto;
+	
+}
+
+
+img {
+	margin-top: 10px;
+	margin-left: 20px;
+	
+	width: 100px;
+	
+}
+
+
+.datetime-display {
+	text-align: center;
+	width: 50%;
+	margin: 0 auto;
+}
+
+.day-columns {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex: 1;
+}
+
+
+.day-card {
+	background-color: white;
+	margin: 10px;
+	text-align: center;
+	width: 20%;
+	 
+	
+}
+
+.section-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 200px;
+  padding: 10px;
+}
+.events-section  {
+	background-color: lightgrey;
+	width: 90%;
+	margin: 0 auto;
+}
+.section-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+
+.event-row3 {
+	display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
