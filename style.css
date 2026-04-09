@@ -230,3 +230,17 @@ display: flex;
   margin-top: 20px;
 margin: 0 auto;  
 }
+
+
+.calendar {
+  display: flex;
+  flex-direction: row;
+}
+
+.calander-week {
+  flex: 1;
+  border: 1px solid #ccc;
+  background: white;
+  min-height: 500px;
+  padding: 10px;
+}
