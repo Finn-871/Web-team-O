@@ -1,1 +1,56 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body style = "background-color: lightgrey">
+<header>
+<div class = "back">
+<a href="student-events.html" class="back-button">&#8592;</a>
+</div>
+<h1 style = "text-align: center;">Event 1</h1>
+</header>
+<h3 style = "text-align: center;"> Time and Date</h3>
+<div class="datetime-displayD" >
+    <p id="datetime">March 26th 2026 &nbsp; 8:45 AM</p>
+  </div>
+ <h3 style = "text-align: center;">Location</h3>
+ <div class = "locationDisplay">
+	<p>building c, room 2</p>
+ </div>
+ <h3 style = "text-align: center;">Description</h3>
+<main>
+<div class = "description">
+<h3>Desription of event</h3>
+<p>fetch admin desription here</P>
+<br><br><br><br>
+</div>
+<div class = "detailsButton">
+                  <button  title="Favourite">ADD To favourites ★</button>
+                  <button  title="View details"
+                          onclick="goToRegister('EVENT_ID_HERE')">register for event ✓</button>
+                </div>
+<div class = "googleCalander">
+<br>
+<button  title="Favourite">Add to google calander</button>
+</main>
+
+<script src="events.js"></script>
+  <script>
+   
+    function updateClock() {
+      const now = new Date()
+      document.getElementById("datetime").textContent =
+        now.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) +
+        "  " +
+        now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })
+    }
+    updateClock()
+    setInterval(updateClock, 60000)
+	</script>
+</body>
+</html>
