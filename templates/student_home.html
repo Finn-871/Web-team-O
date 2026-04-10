@@ -17,7 +17,13 @@
     <div class="profile-info">
       <p>Account Name</p>
       <p>Type: Student</p>
-      <button onclick="handleLogout()">Log Out</button>
+      <button id="logoutBtn">Log Out</button>
+
+      <script>
+      document.getElementById("logoutBtn").addEventListener("click", function () {
+          window.location.href = "./login.html";
+      });
+      </script>
     </div>
   </div>
 </header>
