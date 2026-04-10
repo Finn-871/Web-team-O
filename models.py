@@ -4,16 +4,11 @@ db = SQLAlchemy()
 
 #models
 class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, unique=True, primary_key=True)
-    full_name = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(120), nullable=False)
-    staff = db.Column(db.Boolean, default=False)
+    id = db.Column(db.Integer, primary_key=True) #unique id for users
+    fullname = db.Column(db.String(120), nullable=False) #users name
+    password = db.Column(db.String(120), nullable=False) #users password
+    staff = db.Column(db.Boolean, default=False, nullable=False) #boolean to differentiate staff from students
 
 class Events(db.Model):
     __tablename__ = 'events'
-    id = db.Column(db.Integer, unique=True, primary_key=True)
-
-class Registration(db.Model):
-    __tablename__ = 'registrations'
-    id = db.Column(db.Integer, unique=True, primary_key=True)
+    id = db.Column(db.Integer, unique=True, primary_key=True) #unique id for events
