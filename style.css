@@ -244,3 +244,14 @@ margin: 0 auto;
   min-height: 500px;
   padding: 10px;
 }
+
+.attendTable {
+	text-align: center;
+	margin: 0 auto; 
+	width: 300px;
+  border: 1px solid #ccc;
+  background: white;
+  min-height: 500px;
+  padding: 10px;
+
+}
