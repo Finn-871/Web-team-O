@@ -1,5 +1,6 @@
+import secrets
 from app import app, db
-from models import User, Events
+from models import User, Events, APIKey
 
 def preload_users():
     with app.app_context():
@@ -22,7 +23,29 @@ def preload_users():
         else:
             print("Users database already contains data")
 
+def preload_api_keys():
+    with app.app_context():
+        if APIKey.query.count() == 0:
+            api_keys = [
+                {"owner": "Frontend App"},
+                {"owner": "Staff"},
+                {"owner": "Student"},
+            ]
+            for entry in api_keys:
+                new_key = APIKey(
+                    key=secrets.token_hex(32),
+                    owner=entry["owner"],
+                    rate_limit=1000
+                )
+                db.session.add(new_key)
+            db.session.commit()
+            print("API keys successfully created")
+        else:
+            print("API keys already exist")
+
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
+        preload_api_keys()
         preload_users()

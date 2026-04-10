@@ -2,13 +2,16 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_restful import Api, Resource
 from models import db, User
+from auth import require_api_key
 
 app = Flask(__name__)
 
 db_folder = os.path.join(os.getcwd(), "database")
-db_path = os.path.join(db_folder, "users.db")
+db_users_path = os.path.join(db_folder, "users.db")
+db_keys_path = os.path.join(db_folder, "api_keys.db")
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_users_path}'
+app.config['SQLALCHEMY_BINDS'] = {'keys': f'sqlite:///{db_keys_path}'}
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -16,9 +19,10 @@ api = Api(app)
 
 class UserAPI(Resource):
     #get user
+    @require_api_key
     def get(self):
         users = User.query.all()
-        user_list([{
+        return([{
             "id": u.id,
             "fullname": u.fullname,
             "password": u.password,
@@ -28,6 +32,7 @@ class UserAPI(Resource):
         return jsonify(user_list)
 
     #add user
+    @require_api_key
     def post(self):
         data = request.get_json()
         if not data or "fullname" not in data or "password" not in data or "staff" not in data:
@@ -43,6 +48,7 @@ class UserAPI(Resource):
         return {"message": "New user added"}
 
     #update user
+    @require_api_key
     def put(self):
         data = request.json
         user_id = data.get("id")
@@ -60,6 +66,7 @@ class UserAPI(Resource):
         return {"message": "user updated"}
 
     #delete user
+    @require_api_key
     def delete(self):
         data = request.json
         user_id = data.get("id")
