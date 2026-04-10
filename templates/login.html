@@ -13,9 +13,9 @@
         
         <h1>University Event Manager</h1>
     
-        <form>
-            <input type="text" placeholder="Student/Staff ID">
-            <input type="password" placeholder="Password">
+        <form action="/login" method="POST">
+            <input type="text" name="username" placeholder="Student/Staff ID" required>
+            <input type="password" name="password" placeholder="Password" required>
 
             <button type="submit">Log In</button>
         </form>

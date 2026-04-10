@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session
 from flask_restful import Api, Resource
 from models import db, User
 from auth import require_api_key
@@ -13,6 +13,7 @@ db_keys_path = os.path.join(db_folder, "api_keys.db")
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_users_path}'
 app.config['SQLALCHEMY_BINDS'] = {'keys': f'sqlite:///{db_keys_path}'}
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'SECRETKEY'
 
 db.init_app(app)
 api = Api(app)
@@ -85,6 +86,11 @@ api.add_resource(UserAPI, "/api/users")
 @app.route('/')
 def index():
     users = User.query.all()
+    return render_template('login.html', users=users)
+
+@app.route('/user-list')
+def list():
+    users = User.query.all()
     return render_template('user-list.html', users=users)
 
 @app.route('/add', methods=['POST'])
@@ -92,7 +98,8 @@ def add_user():
     fullname = request.form['name']
     password = request.form['password']
     is_staff = 'staff' in request.form
-    new_user = User(fullname=fullname, password=password, staff=is_staff)
+    new_user = User(fullname=fullname, staff=is_staff)
+    new_user.set_password(password)
     db.session.add(new_user)
     db.session.commit()
     return redirect(url_for('index'))
@@ -104,6 +111,23 @@ def delete_user(id):
     db.session.commit()
     return redirect(url_for('index'))
 
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password_attempt = request.form.get('password')
+
+        user = User.query.filter_by(fullname=username).first()
+
+        if user and user.check_password(password_attempt):
+            session['user_id'] = user.id
+            session['is_staff'] = user.staff
+
+            return redirect(url_for('list'))
+        else:
+            return redirect(url_for('index'))
+
+    return render_template('login.html')
 
 if __name__ == '__main__':
     with app.app_context():
