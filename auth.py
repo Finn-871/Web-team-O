@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import request, jsonify
-from models import APIKey
+from models import APIKey, db
 
 #Middleware to check api key
 def require_api_key(f):

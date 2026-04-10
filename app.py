@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify, s
 from flask_restful import Api, Resource
 from models import db, User
 from auth import require_api_key
+from datetime import timedelta
 
 app = Flask(__name__)
 
@@ -14,6 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_users_path}'
 app.config['SQLALCHEMY_BINDS'] = {'keys': f'sqlite:///{db_keys_path}'}
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'SECRETKEY'
+app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(days=7)
 
 db.init_app(app)
 api = Api(app)
@@ -86,6 +88,7 @@ class UserAPI(Resource):
 
 api.add_resource(UserAPI, "/api/users")
 
+#moving across pages
 @app.route('/')
 def index():
     users = User.query.all()
@@ -98,9 +101,12 @@ def list():
 
 @app.route('/stu-home')
 def stu_home():
-    users = User.query.all()
-    return render_template('student_home.html', users=users)
+    if 'user_id' not in session:
+            return render_template(url_for('index'))
+    current_user = User.query.get(session['user_id'])
+    return render_template('student_home.html', user=current_user)
 
+#alter user database
 @app.route('/add', methods=['POST'])
 def add_user():
     fullname = request.form['name']
@@ -132,6 +138,7 @@ def login():
         if user:
             print(f"User found: {user.username}")
             if user.check_password(password_attempt):
+                session.permanent = True
                 session['user_id'] = user.id
                 session['is_staff'] = user.staff
 
