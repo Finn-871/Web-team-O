@@ -154,6 +154,18 @@ def login():
 
     return redirect(url_for('index'))
 
+@app.route('/student-calendar')
+def student_calendar():
+    return render_template('student_calendar.html')
+
+@app.route('/student-event-details')
+def student_event_detail():
+    return render_template('student_event_details.html')
+
+@app.route('/your-favourites')
+def your_favourites():
+    return render_template('your-favourites.html')
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()

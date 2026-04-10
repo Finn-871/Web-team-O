@@ -75,8 +75,7 @@
                 </div>
                 <div>
                   <button title="Favourite">☆</button>
-                  <button  title="View details"
-                          onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
+                    <a href="/student-event-details"><button title="View details">🔍</button></a>
                 </div>
               </div>
  
@@ -163,7 +162,7 @@
             <p  id="next-event-time">9:00 – 11:00</p>
             <p  id="next-event-location">Building A, Room 1</p>
           </div>
-          <a href="student_calendar.html" class="view-all-btn">
+          <a href="/student-calendar" class="view-all-btn">
             View Full Calendar <span>→</span>
           </a>
         </div>
@@ -265,7 +264,7 @@
             <p  id="next-fav-time">9:00 – 11:00</p>
             <p  id="next-fav-location">Building A, Room 1</p>
           </div>
-          <a href="student_favourited_events.html" class="view-all-btn">
+          <a href="/your-favourites" class="view-all-btn">
             All Favourites <span>→</span>
           </a>
         </div>
@@ -291,14 +290,14 @@
  
     
     function goToDetail(id) {
-      window.location.href = "student-event-detail.html?id=" + id
+      window.location.href = "/student-event-detail?id=" + id
     }
  
   
     function handleLogout() {
       localStorage.removeItem("token")
       localStorage.removeItem("user")
-      window.location.href = "student-login.html"
+      window.location.href = "/student-login"
     }
  
    

@@ -1,5 +1,5 @@
 import uuid
-from .utils import load_events, save_events
+from utils import load_events, save_events
 
 def get_all_events():
     return load_events()
