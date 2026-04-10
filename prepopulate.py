@@ -6,19 +6,19 @@ def preload_users():
     with app.app_context():
         if User.query.count() == 0:
             users = [
-                ("Alice Johnson", "password1", True),
-                ("Bob Smith", "password2", False),
-                ("Charlie Davis", "password3", False),
-                ("Diana Prince", "password4", True),
-                ("Edward Norton", "password5", False),
-                ("Fiona Gallagher", "password6", False),
-                ("George Miller", "password7", True),
-                ("Hannah Abbott", "password8", False),
-                ("Ian Wright", "password9", False),
-                ("Jenny Slate", "password10", False)
+                ("Alice Johnson", "JohnsonA176", "password1", True),
+                ("Bob Smith", "SmithB159", "password2", False),
+                ("Charlie Davis", "DavisC111", "password3", False),
+                ("Diana Prince", "PrinceD285", "password4", True),
+                ("Edward Norton", "NortonE490", "password5", False),
+                ("Fiona Gallagher", "GallagherF277", "password6", False),
+                ("George Miller", "MillerG968", "password7", True),
+                ("Hannah Abbott", "AbbottH048", "password8", False),
+                ("Ian Wright", "WrightI761", "password9", False),
+                ("Jenny Slate", "SlateJ224", "password10", False)
             ]
-            for name, password, staff in users:
-                user = User(fullname = name, staff = staff)
+            for name, username, password, staff in users:
+                user = User(fullname = name, username = username, staff = staff)
                 user.set_password(password)
                 db.session.add(user)
             #db.session.bulk_save_objects(users)

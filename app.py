@@ -27,6 +27,7 @@ class UserAPI(Resource):
             "id": u.id,
             "fullname": u.fullname,
             "password": u.password,
+            "username": u.username,
             "staff": u.staff
         } for u in users])
 
@@ -36,14 +37,15 @@ class UserAPI(Resource):
     @require_api_key
     def post(self):
         data = request.get_json()
-        if not data or "fullname" not in data or "password" not in data or "staff" not in data:
+        if not data or "fullname" not in data or "password" not in data or "username" not in data or "staff" not in data:
             return jsonify({"error": "Missing fields: fullname, password, staff"}), 400
 
         new_user = User(
             fullname=data["fullname"],
-            password=data["password"],
+            username=data["username"],
             staff=data["staff"])
-        
+        new_user.set_password(data["password"])
+
         db.session.add(new_user)
         db.session.commit()
         return {"message": "New user added"}
@@ -60,6 +62,7 @@ class UserAPI(Resource):
         #update user details
         user.fullname = data["fullname"]
         user.password = data["password"]
+        user.username = data["username"]
         user.staff = data["staff"]
 
         db.session.commit()
@@ -97,8 +100,9 @@ def list():
 def add_user():
     fullname = request.form['name']
     password = request.form['password']
+    username = request.form["username"]
     is_staff = 'staff' in request.form
-    new_user = User(fullname=fullname, staff=is_staff)
+    new_user = User(fullname=fullname, username=username, staff=is_staff)
     new_user.set_password(password)
     db.session.add(new_user)
     db.session.commit()
@@ -114,20 +118,25 @@ def delete_user(id):
 @app.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
-        username = request.form.get('username')
+        username_attempt = request.form.get('username')
         password_attempt = request.form.get('password')
 
-        user = User.query.filter_by(fullname=username).first()
+        print(f"Attempting login for: {username_attempt}")
+        user = User.query.filter_by(username=username_attempt).first()
 
-        if user and user.check_password(password_attempt):
-            session['user_id'] = user.id
-            session['is_staff'] = user.staff
+        if user:
+            print(f"User found: {user.username}")
+            if user.check_password(password_attempt):
+                session['user_id'] = user.id
+                session['is_staff'] = user.staff
 
-            return redirect(url_for('list'))
+                return redirect(url_for('list'))
+            else:
+                print("incorrect password")
         else:
-            return redirect(url_for('index'))
+            print("user not found")
 
-    return render_template('login.html')
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     with app.app_context():
