@@ -14,7 +14,13 @@
       <div class="profile-info">
         <p id="profile-name">Account Name</p>
         <p>Type: Staff</p>
-        <button onclick="handleLogout()">Log Out</button>
+        <button id="logoutBtn">Log Out</button>
+
+      <script>
+      document.getElementById("logoutBtn").addEventListener("click", function () {
+          window.location.href = "./login.html";
+      });
+      </script>
       </div>
     </div>
   </header>
@@ -168,8 +174,11 @@
             <p id="next-event-location">Building A, Room 1</p>
           </div>
 
-          <a href="admin-calendar.html" class="view-all-btn">
+          
+          <a href="admin_calendar.html" class="view-all-btn">
             View Full Calendar <span>→</span>
+          </a>
+
           </a>
         </div>
 
