@@ -1,16 +1,20 @@
-/* login-registtationm */
-
+/* Global styles */
 
 * { 
     margin: 0; 
     padding: 0; 
     box-sizing: border-box; 
     font-family: Arial, sans-serif; 
-} 
+}
 
+body {
+    background-color: #cfcfcf;
+}
+
+
+/* login and registration  */
 
 .login-registration-page {
-    background-color: #cfcfcf;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -27,20 +31,20 @@
     margin-bottom: 40px; 
 } 
 
-form { 
+.login-container form { 
     display: flex; 
     flex-direction: column; 
     gap: 25px; 
 } 
 
-input { 
+.login-container input { 
     padding: 12px; 
     font-size: 16px; 
     width: 100%; 
     border: 1px solid #888; 
 } 
 
-button { 
+.login-container button { 
     padding: 12px; 
     font-size: 16px; 
     border-radius: 25px; 
@@ -51,7 +55,7 @@ button {
     align-self: center; 
 } 
 
-a { 
+.login-container a { 
     display: inline-block; 
     margin-top: 20px; 
     padding: 10px 20px; 
@@ -60,18 +64,175 @@ a {
     background-color: #e0e0e0; 
     text-decoration: none; 
     color: black; 
-} 
+}
 
 
+/*profile */
+
+.profile-card {
+    background-color: lightgrey;
+    display: flex;
+    width: 35%;
+    align-items: center;
+    margin: 50px auto 20px auto;
+    border: 2px solid #aaa;
+    padding: 10px;
+}
+
+.profile-card img {
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 100px;
+}
+
+.profile-info {
+    padding: 15px;
+}
+
+.profile-info p {
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+}
 
 
+/*datetime */
 
-/* favourties page */
+.datetime-display {
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+    font-size: 1.2rem;
+}
 
 
+/* shared events section*/
+
+.dashboard {
+    width: 90%;
+    margin: 0 auto 40px auto;
+}
+
+.events-section  {
+    background-color: lightgrey;
+    width: 90%;
+    margin: 20px auto;
+    border: 2px solid #aaa;
+    padding: 10px;
+}
+
+.events-section h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+.section-inner {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+
+/* day cards */
+
+.day-columns {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.day-card {
+    background-color: white;
+    margin: 10px;
+    text-align: center;
+    width: 20%;
+    border: 2px solid #aaa;
+    padding: 10px;
+    min-height: 250px;
+}
+
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #bbb;
+    padding-bottom: 5px;
+}
+
+.day-header span:first-child {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+/* event rows */
+
+.event-row3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+.event-row3 p {
+    margin: 0;
+}
+
+
+/* admin action buttons */
+
+.admin-event-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-event-actions button {
+    width: 40px;
+    padding: 6px;
+    font-size: 1rem;
+}
+
+
+/* siderbar */
+
+.section-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 200px;
+    padding: 10px;
+}
+
+.section-sidebar p {
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.view-all-btn {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: 1px solid #888;
+    background-color: white;
+    text-decoration: none;
+    color: black;
+}
+
+
+/* favourites */
 
 .favourites-page {
-    background-color: #cfcfcf;
     min-height: 100vh;
     position: relative;
 }
@@ -79,12 +240,11 @@ a {
 .page-wrapper {
     width: 90%;
     max-width: 1200px;
-    margin: 40px auto; /* centers horizontally */
+    margin: 40px auto;
 }
 
 .page-title {
-    width: 100%;              /* makes it span full page */
-    text-align: center;       /* centers the text */
+    text-align: center;
     font-size: 3.5rem;
     margin-top: 20px;
 }
@@ -92,7 +252,6 @@ a {
 .back-button {
     position: absolute;
     left: 20px;
-
     text-decoration: none;
     color: black;
     font-size: 2.5rem;
@@ -114,22 +273,18 @@ a {
     font-weight: bold;
     font-size: 1.2rem;
     margin-bottom: 8px;
-    padding: 0 10px;
 }
 
 .event-row {
     display: grid;
     grid-template-columns: 1.2fr 1.4fr 2fr 1fr;
-    align-items: center;
     background-color: #f5f5f5;
     border: 2px solid #aaa;
     margin-bottom: 10px;
-    min-height: 90px;
 }
 
 .event-row div {
-    padding: 18px 14px;
-    font-size: 1.1rem;
+    padding: 18px;
     text-align: center;
     border-right: 1px solid #ddd;
 }
@@ -138,130 +293,57 @@ a {
     border-right: none;
 }
 
-.view-icon {
-    text-decoration: none;
-    font-size: 2rem;
-    color: black;
+
+/* event detail */
+
+.datetime-displayD, 
+.locationDisplay, 
+.description {
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border: 2px solid #aaa;
 }
 
-.profile-card {
-	background-color: lightgrey;
-	display: flex;
-	width: 35%;
-	
-	align-items: center;
-	margin: 50px auto 20px auto;
-	
-}
-
-
-img {
-	margin-top: 10px;
-	margin-left: 20px;
-	
-	width: 100px;
-	
+.detailsButton, 
+.googleCalander {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 
-.datetime-display {
-	text-align: center;
-	width: 50%;
-	margin: 0 auto;
-}
-
-.day-columns {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  flex: 1;
-}
-
-
-.day-card {
-	background-color: white;
-	margin: 10px;
-	text-align: center;
-	width: 20%;
-	 
-	
-}
-
-.section-sidebar {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 200px;
-  padding: 10px;
-}
-.events-section  {
-	background-color: lightgrey;
-	width: 90%;
-	margin: 0 auto;
-}
-.section-inner {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 10px;
-}
-
-
-.event-row3 {
-	display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px;
-}
-
-.datetime-displayD, .locationDisplay, .description {
-	text-align: center;
-	width: 50%;
-	margin: 0 auto;
-	background-color: white;
-	padding: 20px;
-}
-
-
-.detailsButton, .googleCalander {
-display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
-margin: 0 auto;  
-}
-
+/* calendar */
 
 .calendar {
-  display: flex;
-  flex-direction: row;
+    display: flex;
 }
 
 .calander-week {
-  flex: 1;
-  border: 1px solid #ccc;
-  background: white;
-  min-height: 500px;
-  padding: 10px;
+    flex: 1;
+    border: 1px solid #ccc;
+    background: white;
+    min-height: 500px;
+    padding: 10px;
 }
 
 .attendTable {
-	text-align: center;
-	margin: 0 auto; 
-	width: 300px;
-  border: 1px solid #ccc;
-  background: white;
-  min-height: 500px;
-  padding: 10px;
-
+    text-align: center;
+    margin: 0 auto; 
+    width: 300px;
+    border: 1px solid #ccc;
+    background: white;
+    min-height: 500px;
+    padding: 10px;
 }
-
 
 
 /* edit event page */
 
 .edit-event-page {
-    background-color: lightgrey;
     min-height: 100vh;
 }
 
@@ -273,7 +355,6 @@ margin: 0 auto;
 .edit-page-title {
     text-align: center;
     font-size: 4rem;
-    font-weight: normal;
     margin-bottom: 20px;
 }
 
@@ -281,40 +362,27 @@ margin: 0 auto;
     position: absolute;
     top: 20px;
     right: 30px;
-    width: auto;
     padding: 10px 18px;
     border-radius: 25px;
     border: 1px solid #888;
     background-color: white;
-    cursor: pointer;
-    font-size: 1rem;
 }
 
 .edit-event-main {
     text-align: center;
-    width: 100%;
-}
-
-.edit-event-main h3 {
-    margin-top: 18px;
-    margin-bottom: 10px;
 }
 
 .edit-inline-row {
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 12px;
-    margin-bottom: 10px;
     flex-wrap: wrap;
 }
 
 .edit-inline-row input {
     width: 110px;
     padding: 10px;
-    font-size: 1rem;
     border: 1px solid #888;
-    background-color: white;
 }
 
 .edit-dropdowns {
@@ -322,34 +390,13 @@ margin: 0 auto;
     justify-content: center;
     gap: 50px;
     margin-top: 20px;
-    flex-wrap: wrap;
-}
-
-.edit-dropdowns div {
-    text-align: center;
-}
-
-.edit-dropdowns select {
-    width: 150px;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #888;
-    background-color: white;
-}
-
-.edit-description-box {
-    width: 300px;
-    margin: 0 auto;
 }
 
 .edit-description-box textarea {
-    width: 100%;
+    width: 300px;
     height: 220px;
     padding: 10px;
-    font-size: 1rem;
     border: 1px solid #888;
-    background-color: white;
-    resize: none;
 }
 
 .edit-actions {
@@ -358,8 +405,37 @@ margin: 0 auto;
     gap: 35px;
     margin-top: 20px;
 }
-.back {
-    position: absolute;
-    left: 0;
-    top: 10px;
+
+
+/* add events */
+
+.admin-add-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.4fr;
+    gap: 30px;
+}
+
+.admin-inline-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.admin-add-left input,
+.admin-add-middle select,
+.admin-add-right textarea {
+    border: 1px solid #888;
+    background-color: white;
+}
+
+.admin-add-right textarea {
+    height: 170px;
+}
+
+.add-event-btn {
+    align-self: flex-end;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: 1px solid #888;
+    background-color: white;
 }

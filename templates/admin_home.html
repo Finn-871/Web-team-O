@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home (Admin)</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="profile-card">
+      <img src="temp-image.png" alt="profile image">
+      <div class="profile-info">
+        <p id="profile-name">Account Name</p>
+        <p>Type: Staff</p>
+        <button onclick="handleLogout()">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="datetime-display">
+    <p id="datetime">March 26th 2026 &nbsp; 8:45 AM</p>
+  </div>
+
+  <main class="dashboard">
+
+    <section class="events-section" id="admin-upcoming-events">
+      <h2>Upcoming Events</h2>
+
+      <div class="section-inner">
+
+        <div class="day-columns">
+
+          <div class="day-card">
+            <div class="day-header">
+              <span>MAR</span>
+              <span>26th</span>
+            </div>
+
+            <div class="event-list">
+              <div class="event-row3 admin-event-row">
+                <div>
+                  <p>Event 1</p>
+                  <p>9:00 - 11:00</p>
+                </div>
+                <div class="admin-event-actions">
+                  <button title="Edit Event" onclick="goToEdit('1')">✎</button>
+                  <button title="View Details" onclick="goToDetail('1')">🔍</button>
+                </div>
+              </div>
+
+              <div class="event-row3 admin-event-row">
+                <div>
+                  <p>Event 2</p>
+                  <p>13:00 - 15:00</p>
+                </div>
+                <div class="admin-event-actions">
+                  <button title="Edit Event" onclick="goToEdit('2')">✎</button>
+                  <button title="View Details" onclick="goToDetail('2')">🔍</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-header">
+              <span>MAR</span>
+              <span>27th</span>
+            </div>
+
+            <div class="event-list">
+              <div class="event-row3 admin-event-row">
+                <div>
+                  <p>Event 3</p>
+                  <p>10:00 - 13:00</p>
+                </div>
+                <div class="admin-event-actions">
+                  <button title="Edit Event" onclick="goToEdit('3')">✎</button>
+                  <button title="View Details" onclick="goToDetail('3')">🔍</button>
+                </div>
+              </div>
+
+              <div class="event-row3 admin-event-row">
+                <div>
+                  <p>Event 4</p>
+                  <p>13:00 - 14:00</p>
+                </div>
+                <div class="admin-event-actions">
+                  <button title="Edit Event" onclick="goToEdit('4')">✎</button>
+                  <button title="View Details" onclick="goToDetail('4')">🔍</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-header">
+              <span>MAR</span>
+              <span>31st</span>
+            </div>
+
+            <div class="event-list">
+              <div class="event-row3 admin-event-row">
+                <div>
+                  <p>Event 5</p>
+                  <p>9:00 - 12:00</p>
+                </div>
+                <div class="admin-event-actions">
+                  <button title="Edit Event" onclick="goToEdit('5')">✎</button>
+                  <button title="View Details" onclick="goToDetail('5')">🔍</button>
+                </div>
+              </div>
+
+              <div class="event-row3 admin-event-row">
+                <div>
+                  <div>
+                    <p>Event 6</p>
+                    <p>13:00 - 15:00</p>
+                  </div>
+                </div>
+                <div class="admin-event-actions">
+                  <button title="Edit Event" onclick="goToEdit('6')">✎</button>
+                  <button title="View Details" onclick="goToDetail('6')">🔍</button>
+                </div>
+              </div>
+
+              <div class="event-row3 admin-event-row">
+                <div>
+                  <p>Event 7</p>
+                  <p>16:00 - 17:00</p>
+                </div>
+                <div class="admin-event-actions">
+                  <button title="Edit Event" onclick="goToEdit('7')">✎</button>
+                  <button title="View Details" onclick="goToDetail('7')">🔍</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="day-card">
+            <div class="day-header">
+              <span>APR</span>
+              <span>2nd</span>
+            </div>
+
+            <div class="event-list">
+              <div class="event-row3 admin-event-row">
+                <div>
+                  <p>Event 8</p>
+                  <p>11:00 - 12:00</p>
+                </div>
+                <div class="admin-event-actions">
+                  <button title="Edit Event" onclick="goToEdit('8')">✎</button>
+                  <button title="View Details" onclick="goToDetail('8')">🔍</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="section-sidebar">
+          <div>
+            <p>Next Event:</p>
+            <p id="next-event-name">Event 1</p>
+            <p id="next-event-time">9:00 - 11:00</p>
+            <p id="next-event-location">Building A, Room 1</p>
+          </div>
+
+          <a href="admin-calendar.html" class="view-all-btn">
+            View Full Calendar <span>→</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="events-section admin-add-event-section" id="add-event-section">
+      <h2>Add Event</h2>
+
+      <div class="admin-add-layout">
+
+        <div class="admin-add-left">
+          <label for="event-name">Event Name...</label>
+          <input type="text" id="event-name" placeholder="User Input">
+
+          <h3>Time</h3>
+          <div class="admin-inline-row">
+            <span>From</span>
+            <input type="text" placeholder="User Input">
+            <span>To</span>
+            <input type="text" placeholder="User Input">
+          </div>
+
+          <h3>Date</h3>
+          <div class="admin-inline-row">
+            <span>Day</span>
+            <input type="text" placeholder="User Input">
+            <span>Month</span>
+            <input type="text" placeholder="User Input">
+            <span>Year</span>
+            <input type="text" placeholder="User Input">
+          </div>
+        </div>
+
+        <div class="admin-add-middle">
+          <label for="building">Building</label>
+          <select id="building">
+            <option>Dropdown Box</option>
+          </select>
+
+          <label for="room">Room</label>
+          <select id="room">
+            <option>Dropdown Box</option>
+          </select>
+        </div>
+
+        <div class="admin-add-right">
+          <label for="description">Description</label>
+          <textarea id="description" placeholder="User Input"></textarea>
+
+          <button class="add-event-btn" onclick="addEvent()">
+            Add New Event <span>→</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("datetime").textContent =
+        now.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) +
+        "  " +
+        now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    }
+
+    updateClock();
+    setInterval(updateClock, 60000);
+
+    function goToDetail(id) {
+      window.location.href = "admin-event-detail.html?id=" + id;
+    }
+
+    function goToEdit(id) {
+      window.location.href = "admin-edit-event.html?id=" + id;
+    }
+
+    function addEvent() {
+      alert("Add event clicked");
+    }
+
+    function handleLogout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "admin-login.html";
+    }
+
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    if (user.fullName) {
+      document.getElementById("profile-name").textContent = user.fullName;
+    }
+  </script>
+
+</body>
+</html>
