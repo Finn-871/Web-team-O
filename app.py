@@ -96,6 +96,11 @@ def list():
     users = User.query.all()
     return render_template('user-list.html', users=users)
 
+@app.route('/stu-home')
+def stu_home():
+    users = User.query.all()
+    return render_template('student_home.html', users=users)
+
 @app.route('/add', methods=['POST'])
 def add_user():
     fullname = request.form['name']
@@ -130,7 +135,7 @@ def login():
                 session['user_id'] = user.id
                 session['is_staff'] = user.staff
 
-                return redirect(url_for('list'))
+                return redirect(url_for('stu_home'))
             else:
                 print("incorrect password")
         else:
