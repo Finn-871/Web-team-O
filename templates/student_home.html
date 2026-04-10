@@ -52,18 +52,19 @@
               <span>MAR</span>
               <span>26th</span>
             </div>
-            <div class="event-list">
-             
-              <div class="event-row3">
-                
-                  <p>Event 1</p>
-                  <p>9:00 – 11:00</p>
-                
-                <div>
-                  <button  title="Favourite">★</button>
-                  <button  title="View details"
-                          onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
-                </div>
+              <div class="event-list">
+                {% for event in events %}
+                  <div class="event-row3">
+                    <div>
+                      <p>{{ event.title }}</p>
+                      <p>{{ event.date }}</p>
+                    </div>
+                    <div>
+                      <button title="Favourite">☆</button>
+                      <button onclick="goToDetail('{{ event.id }}')">🔍</button>
+                    </div>
+                  </div>
+                {% endfor %}
               </div>
              
  

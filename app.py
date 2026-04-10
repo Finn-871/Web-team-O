@@ -4,6 +4,7 @@ from flask_restful import Api, Resource
 from models import db, User
 from auth import require_api_key
 from datetime import timedelta
+from services import get_all_events, get_event
 
 app = Flask(__name__)
 
@@ -102,9 +103,12 @@ def list():
 @app.route('/stu-home')
 def stu_home():
     if 'user_id' not in session:
-            return render_template(url_for('index'))
+        return redirect(url_for('index'))
+
     current_user = User.query.get(session['user_id'])
-    return render_template('student_home.html', user=current_user)
+    events = get_all_events()   # get events from JSON
+
+    return render_template('student_home.html', user=current_user, events=events)
 
 #alter user database
 @app.route('/add', methods=['POST'])
