@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session
 from flask_restful import Api, Resource
-from models import db, User
+from models import db, User, Registration
 from auth import require_api_key
 from datetime import timedelta
 from services import get_all_events, get_event
@@ -167,6 +167,19 @@ def student_event_detail():
 @app.route('/your-favourites')
 def your_favourites():
     return render_template('your-favourites.html')
+
+@app.route('/register-event', methods=['POST'])
+def register_event():
+    event_id = request.form.get('event_id')
+    user_id = session.get('user_id')
+    
+    existing = Registration.query.filter_by(user_id=user_id, event_id=event_id).first()
+    if not existing:
+        reg = Registration(user_id=user_id, event_id=event_id)
+        db.session.add(reg)
+        db.session.commit()
+    
+    return redirect(url_for('stu_home'))
 
 if __name__ == '__main__':
     with app.app_context():

@@ -19,7 +19,12 @@ class User(db.Model):
 
 class Events(db.Model):
     __tablename__ = 'events'
-    id = db.Column(db.Integer, unique=True, primary_key=True) #unique id for events
+    id = db.Column(db.Integer, unique=True, primary_key=True)
+    
+class Registration(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    event_id = db.Column(db.String, nullable=False)
 
 class APIKey(db.Model):
     __bind_key__ = 'keys'
@@ -28,3 +33,4 @@ class APIKey(db.Model):
     owner = db.Column(db.String(50), nullable=False)
     request_count = db.Column(db.Integer, default=0)
     rate_limit = db.Column(db.Integer, default=1000)
+
