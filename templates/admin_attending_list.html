@@ -16,10 +16,12 @@
 
 <table class="attendTable">
   <thead>
-    <tr>
-      <th>Name</th>
-      <th>ID</th>
-    </tr>
+    {% for user in users %}
+<tr>
+  <td>{{ user.fullname }}</td>
+  <td>{{ user.id }}</td>
+</tr>
+{% endfor %}
   </thead>
   <tbody id="attendee-list">
     
