@@ -160,7 +160,9 @@ def student_calendar():
 
 @app.route('/student-event-details')
 def student_event_detail():
-    return render_template('student_event_details.html')
+    event_id = request.args.get('id')
+    event = get_event(event_id) if event_id else None
+    return render_template('student_event_details.html', event=event)
 
 @app.route('/your-favourites')
 def your_favourites():

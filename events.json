@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "title": "Event 1",
+    "description": "Description of event 1",
+    "date": "26th March 2026 9:00 - 11:00",
+    "location": "Building A, Room 1"
+  },
+  {
+    "id": "2",
+    "title": "Event 2",
+    "description": "Description of event 2",
+    "date": "27th March 2026 10:00 - 13:00",
+    "location": "Building B, Room 3"
+  }
+]

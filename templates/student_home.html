@@ -44,112 +44,33 @@
       <div class="section-inner">
  
        
+      
+ 
         <div class="day-columns">
  
           
+          {% for event in events %}
           <div class="day-card">
             <div>
-              <span>MAR</span>
-              <span>26th</span>
+              <span>{{ event.date }}</span>
+              
             </div>
-              <div class="event-list">
-                {% for event in events %}
-                  <div class="event-row3">
-                    <div>
-                      <p>{{ event.title }}</p>
-                      <p>{{ event.date }}</p>
-                    </div>
-                    <div>
-                      <button title="Favourite">☆</button>
-                      <button onclick="goToDetail('{{ event.id }}')">🔍</button>
-                    </div>
-                  </div>
-                {% endfor %}
-              </div>
-             
- 
+            <div class="event-list">
               <div class="event-row3">
-                <div>
-                  <p>Event 2</p>
-                  <p>13:00 – 15:00</p>
+                <div >
+                  <p >{{ event.title }}</p>
+                  
                 </div>
-                <div>
+                <div >
                   <button title="Favourite">☆</button>
-                    <a href="/student-event-details"><button title="View details">🔍</button></a>
+                    <a href="/student-event-details?id={{ event.id }}"><button title="View details">🔍</button></a>
                 </div>
               </div>
- 
             </div>
           </div>
+          {% endfor %}
+            
           
- 
-          
-          <div class="day-card">
-            <div class="day-header">
-              <span>MAR</span>
-              <span>27th</span>
-            </div>
-            <div class="event-list">
-              <div class="event-row3">
-                <div>
-                  <p>Event 3</p>
-                  <p >10:00 – 13:00</p>
-                </div>
-                <div>
-                  <button title="Favourite">☆</button>
-                  <button onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
-                </div>
-              </div>
-              <div class="event-row3">
-                <div>
-                  <p>Event 4</p>
-                  <p>13:00 – 14:00</p>
-                </div>
-                <div>
-                  <button title="Favourite">☆</button>
-                  <button onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
-                </div>
-              </div>
-            </div>
-          </div>
- 
-          <div class="day-card">
-            <div>
-              <span >MAR</span>
-              <span >31st</span>
-            </div>
-            <div class="event-list">
-              <div class="event-row3">
-                <div>
-                  <p>Event 5</p>
-                  <p>9:00 – 12:00</p>
-                </div>
-                <div class="event-actions">
-                  <button class="star-btn active" title="Favourite">★</button>
-                  <button class="detail-btn" onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
-                </div>
-              </div>
-            </div>
-          </div>
- 
-          <div class="day-card">
-            <div>
-              <span >APR</span>
-              <span >2nd</span>
-            </div>
-            <div class="event-list">
-              <div class="event-row3">
-                <div>
-                  <p >Event 8</p>
-                  <p >11:00 – 12:00</p>
-                </div>
-                <div>
-                  <button title="Favourite">☆</button>
-                  <button onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
-                </div>
-              </div>
-            </div>
-          </div>
  
         </div>
        
@@ -179,81 +100,29 @@
  
         <div class="day-columns">
  
+          
+          {% for event in events %}
           <div class="day-card">
             <div>
-              <span>MAR</span>
-              <span>26th</span>
-            </div>
-            <div class="event-list">
-              <div class="event-row3">
-                <div>
-                  <p>Event 1</p>
-                  <p>9:00 – 11:00</p>
-                </div>
-                <div>
-                  <button>★</button>
-                  <button  onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
-                </div>
-              </div>
-            </div>
-          </div>
- 
-          <div class="day-card">
-            <div>
-              <span>MAR</span>
-              <span >31st</span>
+              <span>{{ event.date }}</span>
+              
             </div>
             <div class="event-list">
               <div class="event-row3">
                 <div >
-                  <p >Event 5</p>
-                  <p >9:00 – 12:00</p>
+                  <p >{{ event.title }}</p>
+                  
                 </div>
                 <div >
-                  <button >★</button>
-                  <button  onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
+                  <button title="Favourite">☆</button>
+                    <a href="/student-event-details?id={{ event.id }}"><button title="View details">🔍</button></a>
                 </div>
               </div>
             </div>
           </div>
- 
-          <div class="day-card">
-            <div >
-              <span >APR</span>
-              <span >14th</span>
-            </div>
-            <div class="event-list">
-              <div class="event-row3">
-                <div >
-                  <p >Event 9</p>
-                  <p >10:00 – 12:00</p>
-                </div>
-                <div >
-                  <button >★</button>
-                  <button  onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
-                </div>
-              </div>
-            </div>
-          </div>
- 
-          <div class="day-card">
-            <div >
-              <span >MAY</span>
-              <span >1st</span>
-            </div>
-            <div class="event-list">
-              <div class="event-row3">
-                <div >
-                  <p >Event 19</p>
-                  <p >14:00 – 17:00</p>
-                </div>
-                <div >
-                  <button >★</button>
-                  <button onclick="goToDetail('EVENT_ID_HERE')">🔍</button>
-                </div>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
+            
+          
  
         </div>
  
