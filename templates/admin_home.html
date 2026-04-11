@@ -12,8 +12,9 @@
     <div class="profile-card">
       <img src="temp-image.png" alt="profile image">
       <div class="profile-info">
-        <p id="profile-name">Account Name</p>
-        <p>Type: Staff</p>
+        <p>Account Name: {{ user.fullname }}</p>
+        <p>Username: {{ user.username }}</p>
+        <p>Type: {{ user.staff }}</p>
         <button id="logoutBtn">Log Out</button>
 
       <script>

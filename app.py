@@ -89,19 +89,34 @@ class UserAPI(Resource):
 
 api.add_resource(UserAPI, "/api/users")
 
-#moving across pages
+#--------------------------------moving across pages------------------------------------
 @app.route('/')
 def index():
     users = User.query.all()
     return render_template('login.html', users=users)
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
 
 @app.route('/user-list')
 def list():
     users = User.query.all()
     return render_template('user-list.html', users=users)
 
-@app.route('/stu-home')
-def stu_home():
+#student pages
+@app.route('/student-calendar')
+def student_calendar():
+    return render_template('student_calendar.html')
+
+@app.route('/student-event-details')
+def student_event_detail():
+    event_id = request.args.get('id')
+    event = get_event(event_id) if event_id else None
+    return render_template('student_event_details.html', event=event)
+
+@app.route('/student-home')
+def student_home():
     if 'user_id' not in session:
         return redirect(url_for('index'))
 
@@ -110,7 +125,47 @@ def stu_home():
 
     return render_template('student_home.html', user=current_user, events=events)
 
-#alter user database
+@app.route('/student-events')
+def student_events():
+    return render_template('student_calendar.html')
+
+#staff pages
+@app.route('/staff-attending-list')
+def staff_attending_list():
+    return render_template('admin_attending_list.html')
+
+@app.route('/staff-calendar')
+def staff_calendar():
+    return render_template('admin_calendar.html')
+
+@app.route('/staff-edit-event')
+def staff_event_calendar():
+    return render_template('admin_event_edit.html')
+
+@app.route('/staff-event-details')
+def staff_event_details():
+    return render_template('admin_event_details.html')
+
+@app.route('/staff-calendar')
+def staff_calendar():
+    return render_template('admin_calendar.html')
+
+@app.route('/staff-home')
+def staff_home():
+    if 'user_id' not in session:
+        return redirect(url_for('index'))
+
+    current_user = User.query.get(session['user_id'])
+    events = get_all_events()   # get events from JSON
+
+    return render_template('admin_home.html', user=current_user, events=events)
+
+#universal pages
+@app.route('/your-favourites')
+def your_favourites():
+    return render_template('your-favourites.html')
+    
+#-----------------------------alter databases-------------------------------
 @app.route('/add', methods=['POST'])
 def add_user():
     fullname = request.form['name']
@@ -130,44 +185,6 @@ def delete_user(id):
     db.session.commit()
     return redirect(url_for('index'))
 
-@app.route('/login', methods=['POST'])
-def login():
-    if request.method == 'POST':
-        username_attempt = request.form.get('username')
-        password_attempt = request.form.get('password')
-
-        print(f"Attempting login for: {username_attempt}")
-        user = User.query.filter_by(username=username_attempt).first()
-
-        if user:
-            print(f"User found: {user.username}")
-            if user.check_password(password_attempt):
-                session.permanent = True
-                session['user_id'] = user.id
-                session['is_staff'] = user.staff
-
-                return redirect(url_for('stu_home'))
-            else:
-                print("incorrect password")
-        else:
-            print("user not found")
-
-    return redirect(url_for('index'))
-
-@app.route('/student-calendar')
-def student_calendar():
-    return render_template('student_calendar.html')
-
-@app.route('/student-event-details')
-def student_event_detail():
-    event_id = request.args.get('id')
-    event = get_event(event_id) if event_id else None
-    return render_template('student_event_details.html', event=event)
-
-@app.route('/your-favourites')
-def your_favourites():
-    return render_template('your-favourites.html')
-
 @app.route('/register-event', methods=['POST'])
 def register_event():
     event_id = request.form.get('event_id')
@@ -180,6 +197,32 @@ def register_event():
         db.session.commit()
     
     return redirect(url_for('stu_home'))
+
+#--------------------------------login logic------------------------------
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        username_attempt = request.form.get('username')
+        password_attempt = request.form.get('password')
+
+        user = User.query.filter_by(username=username_attempt).first()
+
+        if user:
+            if user.check_password(password_attempt):
+                session.permanent = True
+                session['user_id'] = user.id
+                session['is_staff'] = user.staff
+
+                if user.staff == True:
+                    return redirect(url_for('staff_home'))
+                else:
+                    return redirect(url_for('stu_home'))
+            else:
+                print("incorrect password")
+        else:
+            print("user not found")
+
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     with app.app_context():
