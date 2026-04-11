@@ -132,11 +132,13 @@ def student_events():
 #staff pages
 @app.route('/staff-attending-list')
 def staff_attending_list():
-    return render_template('admin_attending_list.html')
+    event_id = request.args.get('event_id')
+    registrations = Registration.query.filter_by(event_id=event_id).all()
+    users = [User.query.get(r.user_id) for r in registrations]
+    return render_template('admin_attending_list.html', users=users)
 
-@app.route('/staff-calendar')
-def staff_calendar():
-    return render_template('admin_calendar.html')
+
+
 
 @app.route('/staff-edit-event')
 def staff_event_calendar():
@@ -196,7 +198,7 @@ def register_event():
         db.session.add(reg)
         db.session.commit()
     
-    return redirect(url_for('stu_home'))
+    return redirect(url_for('student_home'))
 
 #--------------------------------login logic------------------------------
 @app.route('/login', methods=['POST'])
@@ -216,7 +218,7 @@ def login():
                 if user.staff == True:
                     return redirect(url_for('staff_home'))
                 else:
-                    return redirect(url_for('stu_home'))
+                    return redirect(url_for('student_home'))
             else:
                 print("incorrect password")
         else:
