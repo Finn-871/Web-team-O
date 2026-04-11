@@ -9,17 +9,19 @@
 <body style = "background-color: lightgrey;">
 
   <div class = "back">
-  <a href="admin_home.html" class="back-button">&#8592;</a>
+  <a href="staff-home" class="back-button">&#8592;</a>
   </div>
 
 <h1 style = "text-align: center;">Students Attending Event 1</h1>
 
 <table class="attendTable">
   <thead>
-    <tr>
-      <th>Name</th>
-      <th>ID</th>
-    </tr>
+    {% for user in users %}
+<tr>
+  <td>{{ user.fullname }}</td>
+  <td>{{ user.id }}</td>
+</tr>
+{% endfor %}
   </thead>
   <tbody id="attendee-list">
     <tr>
