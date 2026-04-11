@@ -141,11 +141,10 @@ def student_events():
 #staff pages
 @app.route('/staff-attending-list')
 def staff_attending_list():
-    return render_template('admin_attending_list.html')
-
-@app.route('/staff-calendar')
-def staff_calendar():
-    return render_template('admin_calendar.html')
+    event_id = request.args.get('event_id')
+    registrations = Registration.query.filter_by(event_id=event_id).all()
+    users = [User.query.get(r.user_id) for r in registrations]
+    return render_template('admin_attending_list.html', users=users)
 
 @app.route('/staff-edit-event')
 def staff_event_calendar():
