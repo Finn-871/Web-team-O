@@ -192,42 +192,42 @@
 
         <div class="admin-add-left">
           <label for="event-name">Event Name...</label>
-          <input type="text" id="event-name" placeholder="User Input">
+          <input type="text" id="event-name">
 
           <h3>Time</h3>
           <div class="admin-inline-row">
             <span>From</span>
-            <input type="text" placeholder="User Input">
+            <input type="text" value="00:00">
             <span>To</span>
-            <input type="text" placeholder="User Input">
+            <input type="text" value="00:00">
           </div>
 
           <h3>Date</h3>
           <div class="admin-inline-row">
             <span>Day</span>
-            <input type="text" placeholder="User Input">
+            <input type="text">
             <span>Month</span>
-            <input type="text" placeholder="User Input">
+            <input type="text">
             <span>Year</span>
-            <input type="text" placeholder="User Input">
+            <input type="text">
           </div>
         </div>
 
         <div class="admin-add-middle">
           <label for="building">Building</label>
           <select id="building">
-            <option>Dropdown Box</option>
+            <option value="" disabled selected>Select Building</option>
           </select>
 
           <label for="room">Room</label>
           <select id="room">
-            <option>Dropdown Box</option>
+            <option value="" disabled selected>Select Room</option>
           </select>
         </div>
 
         <div class="admin-add-right">
           <label for="description">Description</label>
-          <textarea id="description" placeholder="User Input"></textarea>
+          <textarea id="description"></textarea>
 
           <button class="add-event-btn" onclick="addEvent()">
             Add New Event <span>→</span>
