@@ -1,6 +1,7 @@
 import secrets
 from app import app, db
 from models import User, Events, APIKey
+from datetime import datetime
 
 def preload_users():
     with app.app_context():
@@ -26,6 +27,20 @@ def preload_users():
             print("Preloaded users database")
         else:
             print("Users database already contains data")
+
+def preload_events():
+    with app.app_context():
+        if Events.query.count() == 0:
+            events = [
+                ("Computing Lecture", "Description here", datetime(2026, 5, 5, 12, 00), datetime(2026, 5, 5, 14, 00), 'Europe/London', "Building A, Room 5")
+            ]
+            for title, description, starts_at, ends_at, timeZone, venue in events:
+                event = Events(title = title, description = description, starts_at = starts_at, ends_at = ends_at, timezone = timeZone, venue = venue)
+                db.session.add(event)
+            db.session.commit()
+            print("Preloaded events database")
+        else:
+            print("events database already contains data")
 
 def preload_api_keys():
     with app.app_context():
@@ -53,3 +68,4 @@ if __name__ == "__main__":
         db.create_all()
         preload_api_keys()
         preload_users()
+        preload_events()

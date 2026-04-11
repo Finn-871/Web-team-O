@@ -1,25 +1,34 @@
 import os
+import google_auth_oauthlib.flow
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session
 from flask_restful import Api, Resource
-from models import db, User, Registration
+from models import db, User, Registration, Events
 from auth import require_api_key
 from datetime import timedelta
 from services import get_all_events, get_event
+from utils import add_event_to_google
+from google.oauth2.credentials import Credentials
 
 app = Flask(__name__)
 
 db_folder = os.path.join(os.getcwd(), "database")
 db_users_path = os.path.join(db_folder, "users.db")
+db_events_path = os.path.join(db_folder, "events.db")
 db_keys_path = os.path.join(db_folder, "api_keys.db")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_users_path}'
-app.config['SQLALCHEMY_BINDS'] = {'keys': f'sqlite:///{db_keys_path}'}
+app.config['SQLALCHEMY_BINDS'] = {'keys': f'sqlite:///{db_keys_path}', 'events': f'sqlite:///{db_events_path}'}
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'SECRETKEY'
 app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(days=7)
 
 db.init_app(app)
 api = Api(app)
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+if os.getenv('CODESPACE_NAME'):
+    codespace_name = os.getenv('CODESPACE_NAME')
+    PREFERRED_URL_SCHEME = 'https'
+    app.config['SERVER_NAME'] = f"{codespace_name}-8000.app.github.dev"
 
 class UserAPI(Resource):
     #get user
@@ -110,7 +119,7 @@ def student_calendar():
     return render_template('student_calendar.html')
 
 @app.route('/student-event-details')
-def student_event_detail():
+def student_event_details():
     event_id = request.args.get('id')
     event = get_event(event_id) if event_id else None
     return render_template('student_event_details.html', event=event)
@@ -146,10 +155,6 @@ def staff_event_calendar():
 def staff_event_details():
     return render_template('admin_event_details.html')
 
-@app.route('/staff-calendar')
-def staff_calendar():
-    return render_template('admin_calendar.html')
-
 @app.route('/staff-home')
 def staff_home():
     if 'user_id' not in session:
@@ -165,7 +170,7 @@ def staff_home():
 def your_favourites():
     return render_template('your-favourites.html')
     
-#-----------------------------alter databases-------------------------------
+#-----------------------------alter user databases-------------------------------
 @app.route('/add', methods=['POST'])
 def add_user():
     fullname = request.form['name']
@@ -196,7 +201,7 @@ def register_event():
         db.session.add(reg)
         db.session.commit()
     
-    return redirect(url_for('stu_home'))
+    return redirect(url_for('student_home'))
 
 #--------------------------------login logic------------------------------
 @app.route('/login', methods=['POST'])
@@ -216,13 +221,60 @@ def login():
                 if user.staff == True:
                     return redirect(url_for('staff_home'))
                 else:
-                    return redirect(url_for('stu_home'))
+                    return redirect(url_for('student_home'))
             else:
                 print("incorrect password")
         else:
             print("user not found")
 
     return redirect(url_for('index'))
+
+#----------------------Google Calendar---------------------------------------
+SCOPES = ['https://www.googleapis.com/auth/calendar.events']
+@app.route('/authorise')
+def authorise():
+    session.permanent = True
+    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+        'client_secret.json', scopes=SCOPES)
+    flow.redirect_uri = redirect_uri="https://psychic-space-fortnight-455wp766qpvfj6qv-8000.app.github.dev/oauth2callback"
+
+    authorization_url, state = flow.authorization_url(access_type='offline', include_granted_scopes='true', code_challenge=None)
+    session['state'] = state
+    return redirect(authorization_url)
+
+@app.route('/oauth2callback')
+def oauth2callback():
+    state = session['state']
+    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+        'client_secret.json', scopes=SCOPES, state=state)
+    flow.redirect_uri = "https://psychic-space-fortnight-455wp766qpvfj6qv-8000.app.github.dev/oauth2callback"
+    flow.fetch_token(authorization_response=request.url)
+    credentials = flow.credentials
+    session['google_creds'] = credentials_to_dict(credentials)
+    return redirect(url_for('student_event_details'))
+
+@app.route('/sync-event/<int:id>')
+def sync_event(id):
+    event = Events.query.get(id)
+    creds = session.get('google_creds')
+    if not creds:
+        return redirect(url_for('authorise'))
+
+    creds = Credentials(**creds)
+
+    add_event_to_google(event, creds)
+    return redirect(url_for('student_event_details'))
+
+
+def credentials_to_dict(credentials):
+    return{
+        'token': credentials.token,
+        'refresh_token': credentials.refresh_token,
+        'token_uri': credentials.token_uri,
+        'client_id': credentials.client_id,
+        'client_secret': credentials.client_secret,
+        'scopes':credentials.scopes
+    }
 
 if __name__ == '__main__':
     with app.app_context():

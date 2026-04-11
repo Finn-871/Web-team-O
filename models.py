@@ -20,6 +20,12 @@ class User(db.Model):
 class Events(db.Model):
     __tablename__ = 'events'
     id = db.Column(db.Integer, unique=True, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    starts_at = db.Column(db.DateTime, nullable=False)
+    ends_at = db.Column(db.DateTime, nullable=False)
+    timezone = db.Column(db.String(50), default='Europe/London')
+    venue = db.Column(db.String(200), nullable=False)
     
 class Registration(db.Model):
     id = db.Column(db.Integer, primary_key=True)

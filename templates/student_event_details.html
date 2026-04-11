@@ -15,11 +15,11 @@
 </header>
 <h3 style = "text-align: center;"> Time and Date</h3>
 <div class="datetime-displayD" >
-    <p id="datetime">{{ event.date if event else '' }} &nbsp; </p>
+    <p id="datetime">{{ event.starts_at if event else '' }} &nbsp; </p>
   </div>
  <h3 style = "text-align: center;">Location</h3>
  <div class = "locationDisplay">
-	<p>{{ event.location if event else '' }}</p>
+	<p>{{ event.venue if event else '' }}</p>
  </div>
  <h3 style = "text-align: center;">Description</h3>
 <main>
@@ -37,7 +37,9 @@
                 </div>
 <div class = "googleCalander">
 <br>
-<button  title="Favourite">Add to google calander</button>
+  <a href="{{ url_for('sync_event', id=1) }}">
+  <button  type="button" title="Sync to Google">Add to google calander</button>
+</a>
 </main>
 
 <script src="events.js"></script>
