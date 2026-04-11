@@ -18,7 +18,7 @@ class User(db.Model):
         return check_password_hash(self.password, password)
 
 class Events(db.Model):
-    __tablename__ = 'events'
+    __bind_key__ = 'events'
     id = db.Column(db.Integer, unique=True, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     description = db.Column(db.Text, nullable=True)
